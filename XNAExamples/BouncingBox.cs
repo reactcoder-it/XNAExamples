@@ -24,6 +24,7 @@ namespace XNAExamples
 		Vector2 speed;
 		Random randomizer;
 		Color backColor;
+		Cursor cursor;
 		
 		int frameRate = 0;
 		int frameCounter = 0;
@@ -38,6 +39,11 @@ namespace XNAExamples
 			
 			graphics = new GraphicsDeviceManager(this);
 			this.Content.RootDirectory = "Content";
+			
+			cursor = new Cursor(this, 10);
+			cursor.BorderColor = Color.White;
+			cursor.FillColor = Color.Black;
+			Components.Add(cursor);
 			
 			graphics.IsFullScreen = false;
 		}

@@ -90,6 +90,9 @@ namespace XNAExamples
 			// TODO: Unload any non ContentManager content here
 		}
 		
+		KeyboardState lastState = Keyboard.GetState();
+		KeyboardState state = Keyboard.GetState();
+		
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.
@@ -99,6 +102,9 @@ namespace XNAExamples
 		{
 			// Allows the game to exit
 			if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Escape)) this.Exit();
+			
+			lastState = state;
+			state = Keyboard.GetState();
 			
 			// FPS Counter
 			elapsedTime += gameTime.ElapsedGameTime;
@@ -143,6 +149,47 @@ namespace XNAExamples
 				position += speed;
 			}
 			
+			// Cursor
+			float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			
+			if (state.IsKeyDown(Keys.Q))
+				cursor.StartScale += 1.0f * elapsed;
+			if (state.IsKeyDown(Keys.A))
+				cursor.StartScale -= 1.0f * elapsed;
+			
+			if (state.IsKeyDown(Keys.W))
+				cursor.EndScale += 1.0f * elapsed;
+			if (state.IsKeyDown(Keys.S))
+				cursor.EndScale -= 1.0f * elapsed;
+			
+			if (state.IsKeyDown(Keys.E))
+				cursor.LerpExponent += 1.0f * elapsed;
+			if (state.IsKeyDown(Keys.D))
+				cursor.LerpExponent -= 1.0f * elapsed;
+			
+			if (state.IsKeyDown(Keys.R))
+				cursor.BorderSize += 10.0f * elapsed;
+			if (state.IsKeyDown(Keys.F))
+				cursor.BorderSize -= 10.0f * elapsed;
+			
+			if (state.IsKeyDown(Keys.T))
+				cursor.TrailStiffness += 1000.0f * elapsed;
+			if (state.IsKeyDown(Keys.G))
+				cursor.TrailStiffness -= 1000.0f * elapsed;
+			
+			if (state.IsKeyDown(Keys.Y))
+				cursor.TrailDamping += 100.0f * elapsed;
+			if (state.IsKeyDown(Keys.H))
+				cursor.TrailDamping -= 100.0f * elapsed;
+			
+			if (state.IsKeyDown(Keys.U))
+				cursor.TrailNodeMass += 1.0f * elapsed;
+			if (state.IsKeyDown(Keys.J))
+				cursor.TrailNodeMass -= 1.0f * elapsed;
+			
+			if (state.IsKeyDown(Keys.LeftAlt) && state.IsKeyDown(Keys.Enter))
+				graphics.ToggleFullScreen();
+			
 			base.Update(gameTime);
 		}
 		
@@ -152,20 +199,38 @@ namespace XNAExamples
 		/// <param name="gameTime">Provides of snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			this.GraphicsDevice.Clear(backColor);
+			this.GraphicsDevice.Clear(Color.CornflowerBlue);
+			
+			base.Draw(gameTime);
 			
 			frameCounter++;
 			
 			string fps = string.Format("fps: {0}", frameRate);
 			
 			spriteBatch.Begin();
+			
 			if (texture != null)
 				spriteBatch.Draw(texture, position, Color.White);
-			spriteBatch.DrawString(spriteFont, fps, new Vector2(1,1), Color.Black);
-			spriteBatch.DrawString(spriteFont, fps, new Vector2(0,0), Color.White);
-			spriteBatch.End();
 			
-			base.Draw(gameTime);
+			spriteBatch.DrawString(spriteFont, fps, new Vector2(1, 1), Color.Black);
+			spriteBatch.DrawString(spriteFont, fps, new Vector2(0, 0), Color.White);
+			
+			drawString("[Q/A] Start Scale   : " + cursor.StartScale, new Vector2(20, 30));
+			drawString("[W/S] End Scale     : " + cursor.EndScale, new Vector2(20, 60));
+			drawString("[E/D] Lerp Exponent : " + cursor.LerpExponent, new Vector2(20, 90));
+			drawString("[R/F] Border Size   : " + cursor.BorderSize, new Vector2(20, 120));
+			
+			drawString("[T/G] Stiffness     : " + cursor.TrailStiffness, new Vector2(20, 150));
+			drawString("[Y/H] Damping       : " + cursor.TrailDamping, new Vector2(20, 180));
+			drawString("[U/J] Node Mass     : " + cursor.TrailNodeMass, new Vector2(20, 210));
+			
+			spriteBatch.End();
+		}
+		
+		private void drawString(string text, Vector2 position)
+		{
+			spriteBatch.DrawString(spriteFont, text, position + new Vector2(1, 1), Color.Black);
+			spriteBatch.DrawString(spriteFont, text, position, Color.White);
 		}
 	}
 }

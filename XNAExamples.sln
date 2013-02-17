@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 4.2.2.8818
+# SharpDevelop 5.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNAExamples", "XNAExamples\XNAExamples.csproj", "{2B5BBB68-F2C6-4C44-AC66-5E44B7166A0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CastleGameV", "CastleGameV\CastleGameV.csproj", "{859EA74A-C628-4595-B170-4A3B13685BA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,5 +16,9 @@ Global
 		{2B5BBB68-F2C6-4C44-AC66-5E44B7166A0B}.Debug|x86.ActiveCfg = Debug|x86
 		{2B5BBB68-F2C6-4C44-AC66-5E44B7166A0B}.Release|x86.Build.0 = Release|x86
 		{2B5BBB68-F2C6-4C44-AC66-5E44B7166A0B}.Release|x86.ActiveCfg = Release|x86
+		{859EA74A-C628-4595-B170-4A3B13685BA6}.Debug|x86.Build.0 = Debug|Any CPU
+		{859EA74A-C628-4595-B170-4A3B13685BA6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{859EA74A-C628-4595-B170-4A3B13685BA6}.Release|x86.Build.0 = Release|Any CPU
+		{859EA74A-C628-4595-B170-4A3B13685BA6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal
